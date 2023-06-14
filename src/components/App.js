@@ -40,10 +40,10 @@ function App() {
   ); /** создаем переменную состояния, отвечающую за данные пользователя из апи. Стейт данных текущего пользователя*/
   const [cards, setCards] = useState([]);
   const [deletedCard, setDeletedCard] = useState({});
-  // const [isLoading, setIsLoading] = /** переменная для отслеживания состояния загрузки во время ожидания ответа от сервера */
-  //   useState(
-  //     false
-  //   );
+  const [isLoading, setIsLoading] = /** переменная для отслеживания состояния загрузки во время ожидания ответа от сервера */
+    useState(
+      false
+    );
   /** стейты индикатора загрузки для каждого попап */
   const [isLoadingEditProfilePopup, setIsLoadingEditProfilePopup] = useState(false); 
   const [isLoadingAddPlacePopup, setIsLoadingAddPlacePopup] = useState(false); 
@@ -59,6 +59,12 @@ function App() {
 
   /** эффекты:
    * получение данных пользователя и карточек при загрузке стр */
+  useEffect(() => {
+    if (isLoggedIn === true) {
+      navigate("/");
+    }
+  }, [isLoggedIn, navigate]);
+
   useEffect(() => {
     if (!isLoggedIn) {
       Promise.all([api.getUserInfoApi(), api.getInitialCards()])
@@ -77,11 +83,11 @@ function App() {
     handleTokenCheck();
   }, []);
 
-  useEffect(()=> {
-    if (isLoggedIn) {
-      navigate('/')
-    }
-  },[isLoggedIn, navigate]);
+ // useEffect(()=> {
+   // if (isLoggedIn) {
+   //   navigate('/')
+   // }
+ // },[isLoggedIn, navigate]);
 
   /** обработчики */
   function handleEditProfileClick() {
@@ -109,11 +115,11 @@ function App() {
     setIsInfoTooltipOpen(true);
   }
 
-  // обработчик лайка на карточках
+  /** обработчик лайка на карточках */
   function handleCardLike(card) {
-    //снова проверяем, есть ли уже лайк на карточке 
+    /** снова проверяем, есть ли уже лайк на карточке */
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-    //запрос в апи и получение новых данных карточки 
+    /** запрос в апи и получение новых данных карточки */
     api
       .toggleLikeCard(card._id, !isLiked)
       .then((newCard) => {
@@ -126,13 +132,12 @@ function App() {
       });
   }
 
-
   function handleSubmit(request) {
-    //setIsLoading(true);
+    setIsLoading(true);
     request()
-      .then(closeAllPopups)
-      .catch(console.error)
-       //.finally(() => setIsLoading(false));
+    .then(closeAllPopups)
+    .catch(console.error)
+    .finally(() => setIsLoading(false));
   }
 
 
@@ -142,7 +147,7 @@ function App() {
       return api
         .removeCard(card._id)
         .then(() => {
-          setCards((cards) => cards.filter((c) => c._id !== card._id));
+        setCards((cards) => cards.filter((c) => c._id !== card._id));
       })
         .finally(() => {setIsLoadingConfirmDeletePopup(false)})
     }
@@ -243,7 +248,7 @@ function App() {
     navigate('/sign-in');
   }
 
-  //закрытие всех попап 
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
@@ -254,9 +259,8 @@ function App() {
     setSelectedCard({});
   }
 
-  //разметка jsx 
+  //разметка jsx
   return (
-
       <CurrentUserContext.Provider value={currentUser}>
         <div className='page'>
           <Header loggedIn={isLoggedIn} userEmail={userEmail} onSignOut={handleSignOut} />
@@ -339,6 +343,7 @@ function App() {
           />
         </div>
       </CurrentUserContext.Provider>
+
   );
 }
 
