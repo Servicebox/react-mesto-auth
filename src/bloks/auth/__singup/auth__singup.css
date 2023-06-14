@@ -1,0 +1,12 @@
+.auth__singup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 400;
+    margin: 0;
+    gap: 5px;
+  }

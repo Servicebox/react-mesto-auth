@@ -1,0 +1,13 @@
+.popup__reg-img{
+    display: flex;
+    justify-content: center;
+    /* width: 430px;
+    height: 330px; */
+    margin: 26px auto 32px;
+  }
+  
+  @media screen and (max-width: 767px) {
+    .popup__reg-img {
+      margin: 25px auto 40px;
+    }
+  }

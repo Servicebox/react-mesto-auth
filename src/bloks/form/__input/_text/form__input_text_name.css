@@ -1,0 +1,24 @@
+.form__input_text_name {
+	padding-bottom: 9px;
+	margin: 0;
+	max-width: 358px;
+	width: 100%;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 17px;
+	outline: none;
+	border: none;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	box-sizing: border-box;
+}
+
+.form__input_text_name:last-of-type {
+	margin-bottom: 0;
+}
+
+@media (max-width: 535px) {
+	.form__input_text_name {
+		font-size: 14px;
+		line-height: 17px;
+	}
+}

@@ -1,0 +1,18 @@
+.form {
+    padding: 0;
+    width: 100%;
+    /*position: relative;*/
+    display: flex;
+    flex-direction: column;
+   /* gap: 30px;*/
+    background: #FFFFFF;
+    border-radius: 10px;
+    border: none;
+}
+
+@media screen and (max-width: 500px) {
+    .form {
+        max-width: 282px;
+        margin: 0 auto;
+    }
+}

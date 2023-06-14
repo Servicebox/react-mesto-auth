@@ -1,0 +1,13 @@
+.header__navigation {
+    display: flex;
+    gap: 24px;
+    min-height: 22px;
+    padding-top: 6px;
+  }
+  
+  @media screen and (max-width: 400px) {
+   .header__navigation {
+    flex-direction: column;
+    margin: auto;
+   } 
+  }

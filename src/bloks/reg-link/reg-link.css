@@ -1,0 +1,15 @@
+.reg-link {
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.2;
+    color: #fff;
+    margin-top: -15px;
+    margin-bottom: 0;
+    text-decoration: none;
+    transition: opacity 0.3s ease-in;
+  }
+  
+  .reg-link:hover {
+    opacity: 0.6;
+    cursor: pointer;
+  }

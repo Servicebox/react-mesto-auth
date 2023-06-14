@@ -1,0 +1,32 @@
+.form__input {
+    width: 100%;
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 9px;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+}
+/*.form__input_invalid{
+    border: 1px solid red;
+    color: red;
+    outline: none;*/
+
+
+@media screen and (max-width: 530px) {
+    .form__input {
+        max-width: 350px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .form__input {
+        max-width: 238px;
+        width: 100%;
+    }
+}

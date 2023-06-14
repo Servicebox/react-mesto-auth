@@ -1,0 +1,16 @@
+.popup__reg-status {
+    width: 358px;
+    margin: 0 auto;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    color: #000000;
+  }
+  
+  @media screen and (max-wodth: 540px) {
+      .popup__reg-status {
+          font-size: 20px;
+      }
+      
+  }

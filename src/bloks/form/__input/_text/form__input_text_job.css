@@ -1,0 +1,11 @@
+.form__input_text_job {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 16.94px;
+	outline: none;
+	border: none;
+	width: 100%;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	box-sizing: border-box;
+	padding-bottom: 13px;
+}
