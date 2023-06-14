@@ -2,11 +2,17 @@ import React, { useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Card({ card, onCardClick, onCardLike, onCardDeleteClick }) {
-const currentUser = useContext(CurrentUserContext);
-const isOwn = card.owner._id === currentUser._id;
-const cardDeleteButtonClass = `card__del ${isOwn && 'card__del_active'}`;
-const isLiked = card.likes.some((i) => i._id === currentUser._id);
-const cardLikeButtonClassName = `card__like ${
+  //подписка на котекст 
+  const currentUser = useContext(CurrentUserContext);
+
+  //определим является ли пользователь владелцем картиники
+  const isOwn = card.owner._id === currentUser._id;
+
+  const cardDeleteButtonClass = `card__del ${isOwn && 'card__del_active'}`;
+
+  const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+  const cardLikeButtonClassName = `card__like ${
     isLiked && 'card__like_active'
   }`;
 
@@ -21,6 +27,7 @@ const cardLikeButtonClassName = `card__like ${
   function handleDeleteClick() {
     onCardDeleteClick(card);
   }
+
   //разметка jsx
   return (
     <div className='card'>
