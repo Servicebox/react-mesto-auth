@@ -26,7 +26,6 @@ import { api } from '../utils/Api.js';
 import { auth } from '../utils/Auth.js';
 
 function App() {
-  /** стейты */
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
@@ -37,28 +36,27 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState(
     {}
-  ); /** создаем переменную состояния, отвечающую за данные пользователя из апи. Стейт данных текущего пользователя*/
+  );
   const [cards, setCards] = useState([]);
   const [deletedCard, setDeletedCard] = useState({});
-  const [isLoading, setIsLoading] = /** переменная для отслеживания состояния загрузки во время ожидания ответа от сервера */
-    useState(
-      false
-    );
-  /** стейты индикатора загрузки для каждого попап */
+  //const [isLoading, setIsLoading] = 
+   // useState(
+   //   false
+   // );
+
   const [isLoadingEditProfilePopup, setIsLoadingEditProfilePopup] = useState(false); 
   const [isLoadingAddPlacePopup, setIsLoadingAddPlacePopup] = useState(false); 
   const [isLoadingEditAvatarPopup, setIsLoadingEditAvatarPopup] = useState(false); 
   const [isLoadingConfirmDeletePopup, setIsLoadingConfirmDeletePopup] = useState(false); 
 
-  /** состояние авторизации/регистрации пользователя и его данных */    
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSuccessInfoTooltipStatus, setIsSuccessInfoTooltipStatus] = useState(false);
   const [userEmail, setUserEmail] = useState('');
 
   const navigate = useNavigate();
 
-  /** эффекты:
-   * получение данных пользователя и карточек при загрузке стр */
+  
   useEffect(() => {
     if (isLoggedIn === true) {
       navigate("/");
@@ -115,11 +113,11 @@ function App() {
     setIsInfoTooltipOpen(true);
   }
 
-  /** обработчик лайка на карточках */
+
   function handleCardLike(card) {
-    /** снова проверяем, есть ли уже лайк на карточке */
+
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-    /** запрос в апи и получение новых данных карточки */
+
     api
       .toggleLikeCard(card._id, !isLiked)
       .then((newCard) => {
@@ -133,11 +131,11 @@ function App() {
   }
 
   function handleSubmit(request) {
-    setIsLoading(true);
+    //setIsLoading(true);
     request()
     .then(closeAllPopups)
     .catch(console.error)
-    .finally(() => setIsLoading(false));
+   // .finally(() => setIsLoading(false));
   }
 
 
@@ -147,7 +145,7 @@ function App() {
       return api
         .removeCard(card._id)
         .then(() => {
-        setCards((cards) => cards.filter((c) => c._id !== card._id));
+          setCards((cards) => cards.filter((c) => c._id !== card._id));
       })
         .finally(() => {setIsLoadingConfirmDeletePopup(false)})
     }
