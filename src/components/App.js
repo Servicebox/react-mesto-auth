@@ -175,7 +175,7 @@ function App() {
       return api
         .addCards(inputValues)
         .then((newCard) => {
-        setCards([newCard, ...cards])
+          setCards([newCard, ...cards])
       })
         .finally(() => {setIsLoadingAddPlacePopup(false)})
     }
