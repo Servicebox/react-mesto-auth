@@ -26,6 +26,7 @@ import { api } from '../utils/Api.js';
 import { auth } from '../utils/Auth.js';
 
 function App() {
+
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
@@ -39,17 +40,17 @@ function App() {
   );
   const [cards, setCards] = useState([]);
   const [deletedCard, setDeletedCard] = useState({});
-  //const [isLoading, setIsLoading] = 
-   // useState(
-   //   false
-   // );
+  // const [isLoading, setIsLoading] = /** переменная для отслеживания состояния загрузки во время ожидания ответа от сервера */
+  //   useState(
+  //     false
+  //   );
 
   const [isLoadingEditProfilePopup, setIsLoadingEditProfilePopup] = useState(false); 
   const [isLoadingAddPlacePopup, setIsLoadingAddPlacePopup] = useState(false); 
   const [isLoadingEditAvatarPopup, setIsLoadingEditAvatarPopup] = useState(false); 
   const [isLoadingConfirmDeletePopup, setIsLoadingConfirmDeletePopup] = useState(false); 
 
-
+  
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSuccessInfoTooltipStatus, setIsSuccessInfoTooltipStatus] = useState(false);
   const [userEmail, setUserEmail] = useState('');
@@ -58,13 +59,7 @@ function App() {
 
   
   useEffect(() => {
-    if (isLoggedIn === true) {
-      navigate("/");
-    }
-  }, [isLoggedIn, navigate]);
-
-  useEffect(() => {
-    if (!isLoggedIn) {
+    if (isLoggedIn) { // я на столько измоталась с этой работой,что уже не понимаю элементарных вещей
       Promise.all([api.getUserInfoApi(), api.getInitialCards()])
       .then(([currentUser, initialCards]) => {
         setCurrentUser(currentUser);
@@ -81,11 +76,11 @@ function App() {
     handleTokenCheck();
   }, []);
 
- // useEffect(()=> {
-   // if (isLoggedIn) {
-   //   navigate('/')
-   // }
- // },[isLoggedIn, navigate]);
+  useEffect(()=> {
+    if (isLoggedIn) {
+      navigate('/')
+    }
+  },[isLoggedIn, navigate]);
 
   /** обработчики */
   function handleEditProfileClick() {
@@ -113,11 +108,8 @@ function App() {
     setIsInfoTooltipOpen(true);
   }
 
-
   function handleCardLike(card) {
-
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
     api
       .toggleLikeCard(card._id, !isLiked)
       .then((newCard) => {
@@ -133,9 +125,9 @@ function App() {
   function handleSubmit(request) {
     //setIsLoading(true);
     request()
-    .then(closeAllPopups)
-    .catch(console.error)
-   // .finally(() => setIsLoading(false));
+      .then(closeAllPopups)
+      .catch(console.error)
+      //.finally(() => setIsLoading(false));
   }
 
 
@@ -206,7 +198,7 @@ function App() {
       })
   }
 
-
+  /** обработчик авторизации пользователя */
   function handleLogin(data) {
     return auth
       .login(data)
@@ -221,7 +213,7 @@ function App() {
       });
   }
 
-
+  /** перенаправляем пользователя после проверки токена */
   function handleTokenCheck() {
     const jwt = localStorage.getItem('jwt');
     if (!jwt) {
@@ -239,14 +231,14 @@ function App() {
       })
   }
 
-
+  /** обработчик чекаута пользователя */
   function handleSignOut() {
     localStorage.removeItem('jwt');
     setIsLoggedIn(false);
     navigate('/sign-in');
   }
 
-
+  /** закрытие всех попап */
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
@@ -256,6 +248,7 @@ function App() {
     setDeletedCard({});
     setSelectedCard({});
   }
+
 
   //разметка jsx
   return (
